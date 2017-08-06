@@ -10,6 +10,7 @@ public class Proyecto_Integrador_CarlosVarela {
     
     
     public static void main(String[] args) {
+        System.out.println("xDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD prueba commit ");
         tablero = tablero(tablero, 0, 0);
         print_matriz(tablero, 0, 0);
         for (int i = 0; i < primero.rebeldes.size(); i++) {
