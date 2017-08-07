@@ -7,18 +7,35 @@ public class Proyecto_Integrador_CarlosVarela {
     static Scanner sc = new Scanner(System.in);
     static String [][] tablero = new String [19][19];
     static Player_1 primero = new Player_1();
+    static Player_2 segundo = new Player_2();
     
     
     public static void main(String[] args) {
-        System.out.println("xDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD prueba commit ");
         tablero = tablero(tablero, 0, 0);
-        print_matriz(tablero, 0, 0);
-        for (int i = 0; i < primero.rebeldes.size(); i++) {
-                System.out.println((i+1)+"- "+primero.rebeldes.get(i));
+        String p1, p2, resp;
+        for (int i = 0; i < segundo.duques.size(); i++) {
+            System.out.println((1+i)+".- "+segundo.duques.get(i));
         }
+        System.out.println("#####"+segundo.getRey());
+        do{
+            System.out.print("=== Proyecto Integrador ===\n"
+                    + "Nombre del player 1: ");
+            p1 = sc.next();
+            System.out.print("Nombre del player 2: ");
+            p2 = sc.next();
+            juego(p1,p2);
+            System.out.print("¿Desea continuar?[Si/No]: ");
+            resp = sc.next();
+        }while(resp.equalsIgnoreCase("SI"));   
     }
     
-     static String [][] tablero (String[][]matriz, int f, int c){
+    public static void juego(String p1, String p2){
+        
+            
+    }
+    
+    
+    public static String [][] tablero (String[][]matriz, int f, int c){
         if (f==matriz.length-1 && c==matriz[0].length-1) {
             matriz[f][c]="X";
             return matriz;
@@ -72,6 +89,7 @@ public class Proyecto_Integrador_CarlosVarela {
         /***/        primero.rebeldes.add(new Fichas(f,c));                    
                 }else if(c==8||c==10){
                     matriz[f][c]="○";
+                     segundo.duques.add(new Fichas(f,c));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -90,6 +108,7 @@ public class Proyecto_Integrador_CarlosVarela {
         /***/        primero.rebeldes.add(new Fichas(f,c));                    
                 }else if (c==9){
                     matriz[f][c]="○";
+                    segundo.duques.add(new Fichas(f,c));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -100,6 +119,7 @@ public class Proyecto_Integrador_CarlosVarela {
         /***/        primero.rebeldes.add(new Fichas(f,c));                    
                 }else if (c==8 || c==10){
                     matriz[f][c]="○";
+                    segundo.duques.add(new Fichas(f,c));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -107,6 +127,7 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if(f==8 || f==matriz.length-9){
                 if (c==4||c==7||c==matriz.length-8||c==9|| c==matriz.length-5) {
                     matriz[f][c]="○";
+                    segundo.duques.add(new Fichas(f,c));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -117,8 +138,10 @@ public class Proyecto_Integrador_CarlosVarela {
         /***/        primero.rebeldes.add(new Fichas(f,c));                    
                 }else if (c==6||c==matriz.length-7||c==8||c==matriz.length-9) {
                     matriz[f][c]="○";
+                    segundo.duques.add(new Fichas(f,c));
                 }else if(c==9){
                     matriz[f][c]="☼";
+                    segundo.setRey(new Fichas(f,c));
                 }else{
                     matriz[f][c]=" ";
                 }
