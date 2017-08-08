@@ -1,19 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyecto_integrador_carlosvarela;
 
-/**
- *
- * @author carlo
- */
-public class Fichas {
-    
-    private int x, y;
+import java.util.ArrayList;
 
-    public Fichas(int x, int y) {
+
+public class Fichas implements Comportamiento{
+    
+    private int x, y; //Posicion en X y en Y de la ficha en especifico
+    //private ArrayList<Integer> pos_x = new ArrayList(); //Posiciones en X de todas las fichas contenidas
+    //private ArrayList<Integer> pos_y = new ArrayList(); //Posiciones en Y de todas las fichas contenidas
+
+    
+    public Fichas(int x, int y) { //Constructor que posee todos los atributos.
         this.x = x;
         this.y = y;
     }
@@ -37,6 +34,11 @@ public class Fichas {
     @Override
     public String toString() {
         return "Fichas{" + "x=" + x + ", y=" + y + '}';
+    }
+    
+    @Override
+    public void validar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     

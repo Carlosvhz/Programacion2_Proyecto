@@ -13,7 +13,6 @@ public class Ficha_Rey extends Fichas{
         
     private int x, y;
     
-    
     public Ficha_Rey(int x, int y){
         super(x, y);
         this.x=x;

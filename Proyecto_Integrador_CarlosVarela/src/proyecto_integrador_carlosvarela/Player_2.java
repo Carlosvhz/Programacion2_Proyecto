@@ -4,20 +4,31 @@ import java.util.ArrayList;
 
 public class Player_2 {
     
-    public ArrayList<Fichas> duques = new ArrayList();
-    private Fichas rey;
+    private ArrayList<Fichas> duques = new ArrayList(); //Arreglo de duques
+    private Fichas rey; /*Un rey que tiene cierto atributo diferente pero sigue teniendo
+                          cualidades de una ficha.
+                        */          
     
+    String nombre;
     public Player_2(){
+    }
+    
+    public Player_2(String nombre) {
+        this.nombre = nombre;
     }
 
     public ArrayList<Fichas> getDuques() {
         return duques;
     }
 
-    public void setDuques(ArrayList<Fichas> duques) {
-        this.duques = duques;
+    public void setDuques(Fichas duque) {
+        this.duques.add(duque);
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+   
     public Fichas getRey() {
         return rey;
     }
