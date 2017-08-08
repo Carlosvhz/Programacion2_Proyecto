@@ -9,14 +9,14 @@ package proyecto_integrador_carlosvarela;
  *
  * @author carlo
  */
-public class Ficha_Rey extends Fichas{
-        
-    private int x, y;
+public class Rebelde extends Fichas{
     
-    public Ficha_Rey(int x, int y){
+    private int x, y;
+
+    public Rebelde(int x, int y){
         super(x, y);
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
     
 }

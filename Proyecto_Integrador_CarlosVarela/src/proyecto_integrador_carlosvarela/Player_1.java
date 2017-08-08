@@ -1,13 +1,11 @@
-package proyecto_integrador_carlosvarela;
+    package proyecto_integrador_carlosvarela;
 
 import java.util.ArrayList;
 
 public class Player_1 {
     
-    private ArrayList<Fichas> rebeldes = new ArrayList();  /*Arreglo de fichas del jugador 1. 
-                                                            las fichas poseen posicion en X y en Y
-                                                          */
-    String nombre;
+    private ArrayList<Fichas> rebeldes = new ArrayList();
+    private String nombre;
     
     public Player_1(){
     }

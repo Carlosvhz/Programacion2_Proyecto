@@ -2,6 +2,8 @@ package proyecto_integrador_carlosvarela;
 
 public interface Comportamiento {
 
-    public void validar();
+    public boolean validar();
+    
+    public String [][] mover();
     
 }

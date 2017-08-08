@@ -13,29 +13,36 @@ public class Proyecto_Integrador_CarlosVarela {
     public static void main(String[] args) {
         String p1, p2, resp;
         do{
-            System.out.print("=== Proyecto Integrador ===\n"
+            System.out.print("==== Proyecto Integrador ====\n"
                     + "Nombre del player 1: ");
             p1 = sc.next();
             primero = new Player_1(p1);
             System.out.print("Nombre del player 2: ");
             p2 = sc.next();
             segundo = new Player_2(p2);
+            //Creacion de tablero
             tablero = tablero(tablero, 0, 0);
+            //Inicio del juego
             juego(p1,p2);
             System.out.print("¿Desea continuar?[Si/No]: ");
             resp = sc.next();
-        }while(resp.equalsIgnoreCase("SI"));   
+        }while(resp.equalsIgnoreCase("SI"));
     }
     
     public static void juego(String p1, String p2){
         String turno = "1";
-        System.out.println(" --- Comienzo del juego!! --- ");
+        System.out.println("   ______________ Comienzo del juego ______________ ");
         do {
+            
+            // Imprimiendo tabla
             System.out.println("======================================================");
             print_matriz(tablero, 0, 0);
             System.out.println("======================================================");
+            //*************************
+            
+            // Ingresando datos
             if (turno.equals("1")) {
-                System.out.println(" --- Turno de "+primero.getNombre()+" ---");
+                System.out.println(" --- Turno de "+primero.getNombre()+" ---\n");
                 System.out.print("Seleccionar ficha\n"
                         + "- Ingrese posicion x de la ficha rebelde: ");
                 x = sc.nextInt();
@@ -49,23 +56,32 @@ public class Proyecto_Integrador_CarlosVarela {
                     System.out.print("... Numero no valido! ingrese de nuevo y: ");
                     y = sc.nextInt();
                 }
-                aplicar_cambios(x,y, turno);
-                turno ="2";
-            }else if (turno.equals("2")) {
-                System.out.println(" --- Turno de "+segundo.getNombre()+" ---");
+            } else {
+                System.out.println(" --- Turno de "+segundo.getNombre()+" ---\n");
                 System.out.print("Seleccionar ficha\n"
-                        + "- Ingrese posicion x de la ficha rebelde: ");
+                        + "- Ingrese posicion x del duque: ");
                 x = sc.nextInt();
-                System.out.print("- Ingrese posicion y de la ficha rebelde: ");
+                while(x<0||x>tablero.length-1){
+                    System.out.print("... Numero no valido! ingrese de nuevo x: ");
+                    x = sc.nextInt();
+                }
+                System.out.print("- Ingrese posicion y del duque: ");
                 y = sc.nextInt();
-                turno ="1";
+                while(y<0||y>tablero.length-1){
+                    System.out.print("... Numero no valido! ingrese de nuevo y: ");
+                    y = sc.nextInt();
+                }
             }
+            //************************** 
+            aplicar_cambios(x,y, turno);
+               
+                
         } while (true);
             
     }
     
     public static void aplicar_cambios(int x, int y, String turno){
-        int cont=0, pos_x, pos_y;
+        int pos_x, pos_y;
         if (turno.equals("1") && tablero[x][y].equals("•")) {
             System.out.print("__________________\n"
                     + "- Ingrese posicion X de esta ficha: ");
@@ -95,7 +111,7 @@ public class Proyecto_Integrador_CarlosVarela {
                 return tablero(matriz,f+1,0);
             }else if(c==matriz.length-1 && (f==2||f==5||f==13||f==16)){
                 matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));
+                primero.setRebeldes(new Rebelde(c,f));
                 return tablero(matriz,f+1,0);
             }if(c==matriz.length-1 ){
                 matriz[f][c]=" ";
@@ -103,7 +119,7 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if ( f==0 || f==matriz.length-1 ){
                 if (c==2|| c==5 || c==13 || c==16) {
                 matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));               
+                primero.setRebeldes(new Rebelde(c,f));               
                 }else if (c==0 || c==1 || c==matriz.length-2 || c==matriz.length-1){
                 matriz[f][c]="X";
                 }else{
@@ -122,13 +138,13 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]=" ";
                 }else{
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                   
+                primero.setRebeldes(new Rebelde(c,f));                   
                 }
                 return tablero(matriz, f, c+1); 
             }else if(f==3 || f==matriz.length-4){
                 if(c==7 || c==9 || c==11){
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -136,10 +152,10 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if(f==4 || f==matriz.length-5){
                 if(c==6 || c==12){
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else if(c==8||c==10){
                     matriz[f][c]="○";
-                     segundo.setDuques(new Fichas(c,f));
+                     segundo.setDuques(new Duque(c,f));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -147,7 +163,7 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if(f==5 || f==matriz.length-6){
                 if(c==0 || c==2 || c==matriz.length-1 || c==matriz.length-3|| c==5|| c==matriz.length-6){
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -155,10 +171,10 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if (f==6 || f==matriz.length-7){
                 if(c==4|| c==matriz.length-5){
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else if (c==9){
                     matriz[f][c]="○";
-                    segundo.setDuques(new Fichas(c,f));
+                    segundo.setDuques(new Duque(c,f));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -166,10 +182,10 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if (f==7 || f==matriz.length-8){
                 if(c==3|| c==matriz.length-4){
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else if (c==8 || c==10){
                     matriz[f][c]="○";
-                    segundo.setDuques(new Fichas(c,f));
+                    segundo.setDuques(new Duque(c,f));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -177,7 +193,7 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if(f==8 || f==matriz.length-9){
                 if (c==4||c==7||c==matriz.length-8||c==9|| c==matriz.length-5) {
                     matriz[f][c]="○";
-                    segundo.setDuques(new Fichas(c,f));
+                    segundo.setDuques(new Duque(c,f));
                 }else{
                     matriz[f][c]=" ";
                 }
@@ -185,13 +201,13 @@ public class Proyecto_Integrador_CarlosVarela {
             }else if(f==9){
                 if (c==3 || c==matriz.length-4) {
                     matriz[f][c]="•";
-                primero.setRebeldes(new Fichas(c,f));                    
+                primero.setRebeldes(new Rebelde(c,f));                    
                 }else if (c==6||c==matriz.length-7||c==8||c==matriz.length-9) {
                     matriz[f][c]="○";
-                    segundo.setDuques(new Fichas(c,f));
+                    segundo.setDuques(new Duque(c,f));
                 }else if(c==9){
                     matriz[f][c]="☼";
-                    segundo.setRey(new Fichas(c,f));
+                    segundo.setRey(new Ficha_Rey(c,f));
                 }else{
                     matriz[f][c]=" ";
                 }

@@ -5,11 +5,9 @@ import java.util.ArrayList;
 public class Player_2 {
     
     private ArrayList<Fichas> duques = new ArrayList(); //Arreglo de duques
-    private Fichas rey; /*Un rey que tiene cierto atributo diferente pero sigue teniendo
-                          cualidades de una ficha.
-                        */          
+    private Fichas rey;   
+    private String nombre;
     
-    String nombre;
     public Player_2(){
     }
     
@@ -36,7 +34,5 @@ public class Player_2 {
     public void setRey(Fichas rey) {
         this.rey = rey;
     }
-    
-    
-    
+
 }
