@@ -18,5 +18,14 @@ public class Ficha_Rey extends Fichas{
         this.x=x;
         this.y=y;
     }
-    
+
+    @Override
+    public boolean validar_mov(Fichas ficha, String[][] matriz, int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String[][] mover(Fichas ficha, String[][] matriz, int x, int y) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

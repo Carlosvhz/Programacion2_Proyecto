@@ -3,7 +3,7 @@ package proyecto_integrador_carlosvarela;
 import java.util.ArrayList;
 
 
-public class Fichas implements Comportamiento{
+public abstract class  Fichas implements Comportamiento{
     
     private int x, y; 
     
@@ -33,13 +33,8 @@ public class Fichas implements Comportamiento{
         return "Fichas{" + "x=" + x + ", y=" + y + '}';
     }
 
-    @Override
-    public boolean validar() {
-        
-    }
+    public abstract boolean validar_mov(Fichas ficha, String[][]matriz, int x, int y);
+    
+    public abstract String [][] mover(Fichas ficha, String[][]matriz, int x, int y);
 
-    @Override
-    public String[][] mover() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }
