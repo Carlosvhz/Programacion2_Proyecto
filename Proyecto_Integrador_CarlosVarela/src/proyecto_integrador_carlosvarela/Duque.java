@@ -5,6 +5,8 @@
  */
 package proyecto_integrador_carlosvarela;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author carlo
@@ -29,9 +31,11 @@ public class Duque extends Fichas{
             if (ficha.getX()!=x&&ficha.getY()!=y) {
                 return false;
             }else if (Math.abs(ficha.getX()-x)==1 || Math.abs(ficha.getY()-y)==1) {
-                return true;
-            }else if (matriz[y][x].equals("☒")){
-                return false;
+                if (matriz[x][y].equals("☒")||matriz[y][x].equals("✪")||matriz[y][x].equals("Ⓐ")||matriz[y][x].equals("♛")) {
+                    return false;
+                }else{
+                    return true;
+                }
             }else{
                 return false;
             }
@@ -41,10 +45,15 @@ public class Duque extends Fichas{
     @Override
     public String[][] mover(Fichas ficha, String[][] matriz, int x, int y) {
        matriz[y][x] = "Ⓐ";
-        matriz[ficha.getY()][ficha.getX()] = " ";
-        this.x = x;
-        this.y = y;
-        return matriz;   
+       matriz[ficha.getY()][ficha.getX()] = "⬜";
+       ficha.setX(x);
+       ficha.setY(y);
+       return matriz;   
+    }
+
+    @Override
+    public String[][] comer(Fichas ficha, ArrayList enemigos, String[][] matriz) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

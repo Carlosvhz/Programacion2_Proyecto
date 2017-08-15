@@ -5,6 +5,8 @@
  */
 package proyecto_integrador_carlosvarela;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author carlo
@@ -14,4 +16,6 @@ public interface Comportamiento {
     public abstract boolean validar_mov(Fichas ficha, String[][]matriz, int x, int y);
     
     public abstract String [][] mover(Fichas ficha, String[][]matriz, int x, int y);
+    
+    public abstract String [][] comer (Fichas ficha, ArrayList enemigos, String[][]matriz);
 }

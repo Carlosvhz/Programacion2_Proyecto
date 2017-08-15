@@ -33,8 +33,5 @@ public abstract class  Fichas implements Comportamiento{
         return "Fichas{" + "x=" + x + ", y=" + y + '}';
     }
 
-    public abstract boolean validar_mov(Fichas ficha, String[][]matriz, int x, int y);
     
-    public abstract String [][] mover(Fichas ficha, String[][]matriz, int x, int y);
-
 }

@@ -29,33 +29,42 @@ public class Proyecto_Integrador_CarlosVarela {
         }while(resp.equalsIgnoreCase("SI"));
     }
     
+    /**
+     * Metodo en el que empieza el juego, seleccionando fichas,
+     * moviendo fichas, quitando fichas, validando y demas.
+     * @param p1
+     * @param p2 
+     */
     public static void juego(String p1, String p2){
         String turno = "1";
         int posicion;
         Fichas ficha;
-        System.out.println("   ______________ Comienzo del juego ______________ ");
+        System.out.println("        ______________ Comienzo del juego ______________ ");
         do {
             print_matriz(tablero);
-            if (turno.equals("1")) {
+            if (turno.equals("1")) { // Jugador#1
                 System.out.println(" --- Turno de "+primero.getNombre()+" ---");
                 System.out.print("... Seleccionar ficha\n"
                             + "- Ingrese posicion x de la ficha rebelde: ");
                 x = sc.nextInt();
                 System.out.print("- Ingrese posicion y de la ficha rebelde: ");
                 y = sc.nextInt();
-                while(evaluar(turno, x, y)==-1){
+                //Comprobando posicion de la ficha
+                while(posicion(turno, x, y)==-1){
                     System.out.print("... Ficha no encontrada, Ingrese de nuevo\n"
                             + "- Posicion x: ");
                     x = sc.nextInt();
                     System.out.print("- Posicion y: ");
                     y = sc.nextInt();
                 }
-                posicion = evaluar(turno, x, y);
+                //Agregando el movimiento
+                posicion = posicion(turno, x, y);
                 System.out.print("... Agregando moviemiento\n"
                         + "- Ingrese x: ");
                 x = sc.nextInt();
                 System.out.print("- Ingrese y: ");
                 y = sc.nextInt();
+                //Teniendo la ficha
                 ficha = primero.getRebeldes().get(posicion);
                 while(ficha.validar_mov(ficha, tablero, x, y)==false){
                     System.out.print("... Movimiento no valido, ingrese de nuevo\n"
@@ -64,49 +73,74 @@ public class Proyecto_Integrador_CarlosVarela {
                     System.out.print("- Ingrese y: ");
                     y = sc.nextInt();
                 }
+                // Obteniendo matriz con la ficha movida
                 tablero = ficha.mover(ficha, tablero, x, y);
                 turno = "2";
-            } else {
+            } else { //Player 2
                 System.out.println(" --- Turno de "+segundo.getNombre()+" ---");
                     System.out.print("... Seleccionar ficha\n"
-                            + "- Ingrese posicion x del duque: ");
+                            + "- Ingrese posicion x del duque o rey: ");
                 x = sc.nextInt();
-                System.out.print("- Ingrese posicion y del duque: ");
+                System.out.print("- Ingrese posicion y del duque o rey: ");
                 y = sc.nextInt();
-                while(evaluar(turno, x, y)==-1){
+                //Comprobando posicion de la ficha
+                while(posicion(turno, x, y)==-1){
                     System.out.print("... Ficha no encontrada, Ingrese de nuevo\n"
                             + "- Posicion x: ");
                     x = sc.nextInt();
                     System.out.print("- Posicion y: ");
                     y = sc.nextInt();
                 }
-                posicion = evaluar(turno, x, y);
-                System.out.print("... Agregando moviemiento\n"
-                        + "- Ingrese x: ");
-                x = sc.nextInt();
-                System.out.print("- Ingrese y: ");
-                y = sc.nextInt();
-                ficha = segundo.getDuques().get(posicion);
-                while(ficha.validar_mov(ficha, tablero, x, y)==false){
-                    System.out.print("... Movimiento no valido, ingrese de nuevo\n"
+                //En caso de que la ficha sea la ficha Rey
+                if (posicion(turno, x, y)==25) {
+                    Ficha_Rey rey = (Ficha_Rey)segundo.getRey();
+                    System.out.print("... Rey Agregando moviemiento\n"
                             + "- Ingrese x: ");
                     x = sc.nextInt();
                     System.out.print("- Ingrese y: ");
                     y = sc.nextInt();
+                    while(rey.validar_mov(rey, tablero, x, y)==false){
+                        System.out.print("... Movimiento no valido, ingrese de nuevo\n"
+                                + "- Ingrese x: ");
+                        x = sc.nextInt();
+                        System.out.print("- Ingrese y: ");
+                        y = sc.nextInt();
+                    }
+                    //Retornando matriz con el rey en su nueva posicion
+                    tablero = rey.mover(rey, tablero, x, y);
+                    turno = "1";
+                }else{ 
+                    //En caso de que la ficha sea un Duque
+                    posicion = posicion(turno, x, y);
+                    System.out.print("... Agregando moviemiento\n"
+                            + "- Ingrese x: ");
+                    x = sc.nextInt();
+                    System.out.print("- Ingrese y: ");
+                    y = sc.nextInt();
+                    ficha = segundo.getDuques().get(posicion);
+                    while(ficha.validar_mov(ficha, tablero, x, y)==false){
+                        System.out.print("... Movimiento no valido, ingrese de nuevo\n"
+                                + "- Ingrese x: ");
+                        x = sc.nextInt();
+                        System.out.print("- Ingrese y: ");
+                        y = sc.nextInt();
+                    }
+                    //Retornando matriz con la ficha movida
+                    tablero = ficha.mover(ficha, tablero, x, y);
+                    turno = "1";
                 }
-                tablero = ficha.mover(ficha, tablero, x, y);
-                turno = "1";
-            }
-            //**************************         
-        } while (true);
-            
+            }        
+        } while (true);    
     }
-    
-    /*public String [][] aplicar_cambios(){
-        
-    }*/
-    
-    public static int evaluar(String turno, int x, int y){
+
+    /**
+     * 
+     * @param turno del jugador
+     * @param x
+     * @param y
+     * @return Posición de la ficha seleccionada
+     */
+    public static int posicion(String turno, int x, int y){
         int num = -1;
         if (turno.equals("1")) {
             for (int i = 0; i < primero.getRebeldes().size(); i++) {
@@ -117,14 +151,24 @@ public class Proyecto_Integrador_CarlosVarela {
             return num;
         }else{
             for (int i = 0; i < segundo.getDuques().size(); i++) {
-                if (segundo.getDuques().get(i).getX()==x && segundo.getDuques().get(i).getY()==y) {
+                if ( (segundo.getDuques().get(i).getX()==x && segundo.getDuques().get(i).getY()==y)) {
                     num = i;
+                }else if (segundo.getRey().getX()==x&&segundo.getRey().getY()==y) {
+                    num = 25;
                 }
             }
             return num;
         }
     }
     
+    /**
+     * 
+     * @param matriz
+     * @param f filas 
+     * @param c columnas
+     * @return  matriz llena de fichas, tambien almacena todas las fichas en 
+     * El ArrayList de cada jugador.
+     */
     public static String [][] tablero (String[][]matriz, int f, int c){
         if (f==matriz.length-1 && c==matriz[0].length-1) {
             matriz[f][c]="☒";
@@ -138,7 +182,7 @@ public class Proyecto_Integrador_CarlosVarela {
                 primero.setRebeldes(new Rebelde(c,f));
                 return tablero(matriz,f+1,0);
             }if(c==matriz.length-1 ){
-                matriz[f][c]=" ";
+                matriz[f][c]="⬜";
                 return tablero(matriz,f+1,0);
             }else if ( f==0 || f==matriz.length-1 ){
                 if (c==2|| c==5 || c==13 || c==16) {
@@ -147,19 +191,19 @@ public class Proyecto_Integrador_CarlosVarela {
                 }else if (c==0 || c==1 || c==matriz.length-2 || c==matriz.length-1){
                 matriz[f][c]="☒";
                 }else{
-                matriz[f][c]=" ";
+                matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1); 
             }else if (f==1 || f==matriz.length-2){
                 if (c>1&&c<matriz.length-2) {
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }else{
                     matriz[f][c]="☒";
                 }
                 return tablero(matriz, f, c+1); 
             }else if(f==2 || f==matriz.length-3 ){
                 if (c>5&&c<13 || (c>0&&c<5) ||(c>13&&c<18)) {
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }else{
                     matriz[f][c]="✪";
                 primero.setRebeldes(new Rebelde(c,f));                   
@@ -170,7 +214,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="✪";
                 primero.setRebeldes(new Rebelde(c,f));                    
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1); 
             }else if(f==4 || f==matriz.length-5){
@@ -181,7 +225,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="Ⓐ";
                      segundo.setDuques(new Duque(c,f));
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1);
             }else if(f==5 || f==matriz.length-6){
@@ -189,7 +233,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="✪";
                 primero.setRebeldes(new Rebelde(c,f));                    
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1);
             }else if (f==6 || f==matriz.length-7){
@@ -200,7 +244,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="Ⓐ";
                     segundo.setDuques(new Duque(c,f));
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1);
             }else if (f==7 || f==matriz.length-8){
@@ -211,7 +255,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="Ⓐ";
                     segundo.setDuques(new Duque(c,f));
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1);
             }else if(f==8 || f==matriz.length-9){
@@ -219,7 +263,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="Ⓐ";
                     segundo.setDuques(new Duque(c,f));
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz, f, c+1);
             }else if(f==9){
@@ -233,27 +277,22 @@ public class Proyecto_Integrador_CarlosVarela {
                     matriz[f][c]="♛";
                     segundo.setRey(new Ficha_Rey(c,f));
                 }else{
-                    matriz[f][c]=" ";
+                    matriz[f][c]="⬜";
                 }
                 return tablero(matriz,f,c+1);
             }else{
-                matriz[f][c] = " ";
+                matriz[f][c] = "⬜";
                 return tablero(matriz, f, c+1);
             }
         }
     } 
     
+    /**
+     * Imprime matriz.
+     * @param matriz 
+     */
     static void print_matriz(String[][]matriz){
-        System.out.println("======================================================");
-        System.out.print("    ");
-        for (int i = 0; i < matriz.length; i++) {
-            if (i>9) {
-              System.out.print(i+" ");  
-            }else{
-                System.out.print(i+"  ");
-            }
-        }
-        System.out.println();
+        System.out.println("=====================================================================");
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++){
                 if (j==0) {
@@ -263,10 +302,10 @@ public class Proyecto_Integrador_CarlosVarela {
                       System.out.print(i+"  ");
                     }  
                 }
-                System.out.print("["+matriz[i][j]+"]");
+                System.out.print(" "+matriz[i][j]+" ");
             }
             System.out.println();
         }
-            System.out.println("======================================================");        
+            System.out.println("=====================================================================");        
     }
 }
