@@ -35,17 +35,39 @@ import java.util.ArrayList;
         if (x<0||x>matriz.length-1 || y<0||y>matriz.length-1) {
             return false;
         }else{
-            if (ficha.getX()!=x&&ficha.getY()!=y) {
-                return false;
-            }else if (Math.abs(ficha.getX()-x)==1 || Math.abs(ficha.getY()-y)==1) {
-               if (matriz[y][x].equals("✪")||matriz[y][x].equals("Ⓐ")||x==9&&y==9) {
-                    return false;
-                }else{
-                    return true;
+            if (ficha.getX()!=x&&ficha.getY()==y) { //Movimiento derecha o izquierda
+                    if (x>ficha.getX()) {
+                        for (int i = ficha.getX()+1; i < x; i++) {
+                            if (matriz[ficha.getY()][i].equals("✪")||matriz[ficha.getY()][i].equals("Ⓐ")) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }else{
+                        for (int i = ficha.getX()-1; i > x; i--) {
+                            if (matriz[ficha.getY()][i].equals("✪")||matriz[ficha.getY()][i].equals("Ⓐ")) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
+                }else{  // Movimiento arriba o abajo 
+                    if (y>ficha.getY()) {
+                        for (int i = ficha.getY()+1; i < y; i++) {
+                            if (matriz[i][ficha.getX()].equals("✪")||matriz[i][ficha.getX()].equals("Ⓐ")) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }else{
+                        for (int i = ficha.getY()-1; i > y; i--) {
+                            if (matriz[i][ficha.getX()].equals("✪")||matriz[i][ficha.getX()].equals("Ⓐ")) {
+                                return false;
+                            }
+                        }
+                        return true;
+                    }
                 }
-            }else{
-                return false;
-            }
         }
     }
 

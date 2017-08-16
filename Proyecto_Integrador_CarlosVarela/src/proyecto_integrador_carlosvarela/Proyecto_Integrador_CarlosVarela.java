@@ -293,13 +293,16 @@ public class Proyecto_Integrador_CarlosVarela {
      */
     static void print_matriz(String[][]matriz){
         System.out.println("=====================================================================");
+        System.out.println("     ⓿  ➊  ➋  ➌  ➍  ➎  ➏  ➐  ➑  ➒  ➓  ⓫"
+                + "  ⓬  ⓭  ⓮  ⓯  ⓰  ⓱  ⓲");
+        System.out.println("  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++){
                 if (j==0) {
                     if (i>9) {
-                      System.out.print(i+" ");  
+                      System.out.print(i+"| ");  
                     }else{
-                      System.out.print(i+"  ");
+                      System.out.print(i+" | ");
                     }  
                 }
                 System.out.print(" "+matriz[i][j]+" ");
