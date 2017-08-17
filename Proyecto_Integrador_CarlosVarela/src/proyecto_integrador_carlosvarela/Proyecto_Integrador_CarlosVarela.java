@@ -74,9 +74,9 @@ public class Proyecto_Integrador_CarlosVarela {
                     y = sc.nextInt();
                 }
                 // Obteniendo matriz con la ficha movida
-                tablero = ficha.mover(ficha, tablero, x, y);
+                tablero = ficha.comer(ficha, primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
                 turno = "2";
-            } else { //Player 2
+            } else { //jugador# 2
                 System.out.println(" --- Turno de "+segundo.getNombre()+" ---");
                     System.out.print("... Seleccionar ficha\n"
                             + "- Ingrese posicion x del duque o rey: ");
@@ -107,7 +107,7 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con el rey en su nueva posicion
-                    tablero = rey.mover(rey, tablero, x, y);
+                    tablero = rey.comer(rey, segundo.getDuques(), rey.mover(rey, tablero, x, y));
                     turno = "1";
                 }else{ 
                     //En caso de que la ficha sea un Duque
@@ -126,7 +126,7 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con la ficha movida
-                    tablero = ficha.mover(ficha, tablero, x, y);
+                    tablero = ficha.comer(ficha, segundo.getDuques(), ficha.mover(ficha, tablero, x, y));
                     turno = "1";
                 }
             }        
@@ -295,7 +295,7 @@ public class Proyecto_Integrador_CarlosVarela {
         System.out.println("=====================================================================");
         System.out.println("     ⓿  ➊  ➋  ➌  ➍  ➎  ➏  ➐  ➑  ➒  ➓  ⓫"
                 + "  ⓬  ⓭  ⓮  ⓯  ⓰  ⓱  ⓲");
-        System.out.println("  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
+        System.out.println("   _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _");
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[0].length; j++){
                 if (j==0) {
