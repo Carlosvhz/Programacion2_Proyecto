@@ -134,7 +134,6 @@ public class Proyecto_Integrador_CarlosVarela {
     }
 
     /**
-     * 
      * @param turno del jugador
      * @param x
      * @param y
@@ -162,7 +161,6 @@ public class Proyecto_Integrador_CarlosVarela {
     }
     
     /**
-     * 
      * @param matriz
      * @param f filas 
      * @param c columnas
