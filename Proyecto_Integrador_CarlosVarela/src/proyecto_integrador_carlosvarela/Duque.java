@@ -73,7 +73,7 @@ public class Duque extends Fichas{
     }
 
     @Override
-    public String[][] comer(Fichas ficha, ArrayList colegas, String[][] matriz) {
+    public String[][] comer(Fichas ficha, ArrayList colegas, ArrayList enemigos, String[][] matriz) {
         for (int i = 0; i < colegas.size(); i++) {
             if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
@@ -105,4 +105,3 @@ public class Duque extends Fichas{
     }
 
 }
-    

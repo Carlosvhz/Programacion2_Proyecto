@@ -17,5 +17,5 @@ public interface Comportamiento {
     
     public abstract String [][] mover(Fichas ficha, String[][]matriz, int x, int y);
     
-    public abstract String [][] comer (Fichas ficha, ArrayList enemigos, String[][]matriz);
+    public abstract String [][] comer (Fichas ficha, ArrayList aliados, ArrayList enemigos, String[][]matriz);
 }

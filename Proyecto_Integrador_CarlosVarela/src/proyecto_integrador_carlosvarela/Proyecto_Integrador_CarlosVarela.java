@@ -1,6 +1,7 @@
 package proyecto_integrador_carlosvarela;
 
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class Proyecto_Integrador_CarlosVarela {
    
@@ -40,8 +41,8 @@ public class Proyecto_Integrador_CarlosVarela {
         int posicion;
         Fichas ficha;
         System.out.println("        ______________ Comienzo del juego ______________ ");
+        print_matriz(tablero);
         do {
-            print_matriz(tablero);
             if (turno.equals("1")) { // Jugador#1
                 System.out.println(" --- Turno de "+primero.getNombre()+" ---");
                 System.out.print("... Seleccionar ficha\n"
@@ -74,7 +75,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     y = sc.nextInt();
                 }
                 // Obteniendo matriz con la ficha movida
-                tablero = ficha.comer(ficha, primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
+                tablero = ficha.comer(ficha, primero.getRebeldes(), segundo.getDuques(), ficha.mover(ficha, tablero, x, y));
                 turno = "2";
             } else { //jugador# 2
                 System.out.println(" --- Turno de "+segundo.getNombre()+" ---");
@@ -93,13 +94,13 @@ public class Proyecto_Integrador_CarlosVarela {
                 }
                 //En caso de que la ficha sea la ficha Rey
                 if (posicion(turno, x, y)==25) {
-                    Ficha_Rey rey = (Ficha_Rey)segundo.getRey();
+                    ficha = (Ficha_Rey)segundo.getRey();
                     System.out.print("... Rey Agregando moviemiento\n"
                             + "- Ingrese x: ");
                     x = sc.nextInt();
                     System.out.print("- Ingrese y: ");
                     y = sc.nextInt();
-                    while(rey.validar_mov(rey, tablero, x, y)==false){
+                    while(ficha.validar_mov(ficha, tablero, x, y)==false){
                         System.out.print("... Movimiento no valido, ingrese de nuevo\n"
                                 + "- Ingrese x: ");
                         x = sc.nextInt();
@@ -107,7 +108,7 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con el rey en su nueva posicion
-                    tablero = rey.comer(rey, segundo.getDuques(), rey.mover(rey, tablero, x, y));
+                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
                     turno = "1";
                 }else{ 
                     //En caso de que la ficha sea un Duque
@@ -126,13 +127,28 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con la ficha movida
-                    tablero = ficha.comer(ficha, segundo.getDuques(), ficha.mover(ficha, tablero, x, y));
+                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
                     turno = "1";
                 }
             }        
-        } while (true);    
+            print_matriz(tablero);
+        } while (evaluar(ficha));    
     }
 
+    public static boolean evaluar(Fichas ficha){
+        if (ficha instanceof Ficha_Rey) {
+            if ( (ficha.getY()<2&&ficha.getX()<2)||(ficha.getY()<2&&ficha.getX()>16)||
+                (ficha.getY()>16&&ficha.getX()<2)||(ficha.getY()>16&&ficha.getX()>16) ) {
+                System.out.println(primero.getNombre()+" HA GANADOOO! ");
+                return false;
+            }else{
+                return true;
+            }
+        }else{
+            return true;
+        }
+    }
+    
     /**
      * @param turno del jugador
      * @param x

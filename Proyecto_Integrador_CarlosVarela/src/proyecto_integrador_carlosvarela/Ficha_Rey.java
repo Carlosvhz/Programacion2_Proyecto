@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
     @Override
     public String[][] mover(Fichas ficha, String[][] matriz, int x, int y) {
-        matriz[y][x] = "♛";
+        matriz[y][x] = "♛";                   
         matriz[ficha.getY()][ficha.getX()] = "⬜";
         ficha.setX(x);
         ficha.setY(y);
@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
     @Override
     public boolean validar_mov(Fichas ficha, String[][] matriz, int x, int y) {
-        Ficha_Rey rey = (Ficha_Rey)ficha;
         if (x<0||x>matriz.length-1 || y<0||y>matriz.length-1|| (ficha.getX()==x&&ficha.getY()==y)) {
             return false;
         }else{
@@ -72,7 +71,7 @@ import java.util.ArrayList;
     }
 
     @Override
-    public String[][] comer(Fichas ficha, ArrayList colegas, String[][] matriz) {
+    public String[][] comer(Fichas ficha, ArrayList colegas, ArrayList enemigos, String[][] matriz) {
         for (int i = 0; i < colegas.size(); i++) {
             if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
