@@ -118,7 +118,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     x = sc.nextInt();
                     System.out.print("- Ingrese y: ");
                     y = sc.nextInt();
-                    ficha = segundo.getDuques().get(posicion);
+                    ficha = (Duque)segundo.getDuques().get(posicion);
                     while(ficha.validar_mov(ficha, tablero, x, y)==false){
                         System.out.print("... Movimiento no valido, ingrese de nuevo\n"
                                 + "- Ingrese x: ");
@@ -127,7 +127,8 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con la ficha movida
-                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
+                    tablero =  ficha.mover(ficha, tablero, x, y);
+                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(),tablero);
                     turno = "1";
                 }
             }        
@@ -140,6 +141,8 @@ public class Proyecto_Integrador_CarlosVarela {
             if ( (ficha.getY()<2&&ficha.getX()<2)||(ficha.getY()<2&&ficha.getX()>16)||
                 (ficha.getY()>16&&ficha.getX()<2)||(ficha.getY()>16&&ficha.getX()>16) ) {
                 System.out.println(primero.getNombre()+" HA GANADOOO! ");
+                primero.getRebeldes().removeAll(primero.getRebeldes());
+                segundo.getDuques().removeAll(segundo.getDuques());
                 return false;
             }else{
                 return true;
@@ -159,14 +162,14 @@ public class Proyecto_Integrador_CarlosVarela {
         int num = -1;
         if (turno.equals("1")) {
             for (int i = 0; i < primero.getRebeldes().size(); i++) {
-                if (primero.getRebeldes().get(i).getX()==x && primero.getRebeldes().get(i).getY()==y) {
+                if (primero.getRebeldes().get(i).getX()==x && primero.getRebeldes().get(i).getY()==y && tablero[y][x].equals("✪")) {
                     num = i;
                 }
             }
             return num;
         }else{
             for (int i = 0; i < segundo.getDuques().size(); i++) {
-                if ( (segundo.getDuques().get(i).getX()==x && segundo.getDuques().get(i).getY()==y)) {
+                if ( (segundo.getDuques().get(i).getX()==x && segundo.getDuques().get(i).getY()==y) && tablero[y][x].equals("Ⓐ")) {
                     num = i;
                 }else if (segundo.getRey().getX()==x&&segundo.getRey().getY()==y) {
                     num = 25;

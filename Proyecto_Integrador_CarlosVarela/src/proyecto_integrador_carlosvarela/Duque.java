@@ -24,10 +24,15 @@ public class Duque extends Fichas{
 
     @Override
     public boolean validar_mov(Fichas ficha, String[][] matriz, int x, int y) {
-        if (x<0||x>matriz.length-1 || y<0||y>matriz.length-1 || (ficha.getX()==x&&ficha.getY()==y)) {
+        if (x<0||x>matriz.length-1 || y<0||y>matriz.length-1  || (ficha.getX()==x&&ficha.getY()==y)) {
             return false;
         }else{
-            if (ficha.getX()!=x&&ficha.getY()==y) { //Movimiento derecha o izquierda
+            if (ficha.getX()!=x&&ficha.getY()!=y) {
+                return false;
+            }else if (matriz[x][y].equals("☒")||matriz[y][x].equals("✪")||matriz[y][x].equals("Ⓐ")||matriz[y][x].equals("♛")) {
+                    return false;
+            }else{
+                if (ficha.getX()!=x&&ficha.getY()==y) { //Movimiento derecha o izquierda
                     if (x>ficha.getX()) {
                         for (int i = ficha.getX()+1; i <= x; i++) {
                             if (matriz[ficha.getY()][i].equals("✪")||matriz[ficha.getY()][i].equals("Ⓐ")||matriz[ficha.getY()][i].equals("♛")) {
@@ -60,10 +65,10 @@ public class Duque extends Fichas{
                         return true;
                     }
                 }
+            }//
         }
     }
     
-    @Override
     public String[][] mover(Fichas ficha, String[][] matriz, int x, int y) {
        matriz[y][x] = "Ⓐ";
        matriz[ficha.getY()][ficha.getX()] = "⬜";
@@ -74,31 +79,37 @@ public class Duque extends Fichas{
 
     @Override
     public String[][] comer(Fichas ficha, ArrayList colegas, ArrayList enemigos, String[][] matriz) {
+        System.out.println(ficha.getX()+", "+ficha.getY());
         for (int i = 0; i < colegas.size(); i++) {
             if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
                     matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2] = "⬜";
                 }
-            }else if(Math.abs(ficha.getY()-((Fichas)colegas.get(i)).getY())==2 && ficha.getX()==((Fichas)colegas.get(i)).getX()){
+            }
+            if(Math.abs(ficha.getY()-((Fichas)colegas.get(i)).getY())==2 && ficha.getX()==((Fichas)colegas.get(i)).getX()){
                 if (matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()].equals("✪") ) {
                     matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()] = "⬜";
                 }
-            }else if (ficha.getX()==1 || (ficha.getX()==3&& ficha.getY()<2||ficha.getY()>16) ) {
-                if (matriz[ficha.getY()][ficha.getX()-1].equals("✪")) {
+            }
+        }
+        if (ficha.getX()==1 || (ficha.getX()==3&& ficha.getY()<2||ficha.getY()>16) ) {
+            if (matriz[ficha.getY()][ficha.getX()-1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()-1] = "⬜";
-                }
-            }else if (ficha.getX()==17 || (ficha.getX()==15&& ficha.getY()<2||ficha.getY()>16)) {
-                if (matriz[ficha.getY()][ficha.getX()+1].equals("✪")) {
+            }
+        } //Bien
+        if (ficha.getX()==17 || (ficha.getX()==15&& ficha.getY()<2||ficha.getY()>16)) {
+            if (matriz[ficha.getY()][ficha.getX()+1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()+1] = "⬜";
-                }
-            }else if (ficha.getY()==1 || (ficha.getY()==3&&ficha.getX()<2||ficha.getX()>16)) {
-                if (matriz[ficha.getY()-1][ficha.getX()].equals("✪")) {
+            }
+        } //Bien
+        if (ficha.getY()==1 || (ficha.getY()==3&&ficha.getX()<2||ficha.getX()>16)) {
+            if (matriz[ficha.getY()-1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()-1][ficha.getX()] = "⬜";
-                }
-            }else if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<2||ficha.getX()>16)) {
-                if (matriz[ficha.getY()+1][ficha.getX()].equals("✪")) {
+            }
+        } 
+        if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<2||ficha.getX()>16)) {
+            if (matriz[ficha.getY()+1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()+1][ficha.getX()] = "⬜";
-                }
             }
         }
         return matriz;
