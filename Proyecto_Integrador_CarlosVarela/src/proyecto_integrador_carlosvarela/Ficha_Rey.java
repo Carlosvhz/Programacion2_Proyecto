@@ -77,26 +77,37 @@ import java.util.ArrayList;
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
                     matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2] = "⬜";
                 }
-            }else if(Math.abs(ficha.getY()-((Fichas)colegas.get(i)).getY())==2 && ficha.getX()==((Fichas)colegas.get(i)).getX()){
+            }
+            if(Math.abs(ficha.getY()-((Fichas)colegas.get(i)).getY())==2 && ficha.getX()==((Fichas)colegas.get(i)).getX()){
                 if (matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()].equals("✪") ) {
                     matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()] = "⬜";
                 }
-            }else if (ficha.getX()==1 || (ficha.getX()==3&& ficha.getY()<2||ficha.getY()>16) ) {
-                if (matriz[ficha.getY()][ficha.getX()-1].equals("✪")) {
+            }
+        }
+        
+        //Lado derecho
+        if (ficha.getX()==1 || (ficha.getX()==3 && ficha.getY()<=1)||(ficha.getX()==3 && ficha.getY()>=17)) {
+            if (matriz[ficha.getY()][ficha.getX()-1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()-1] = "⬜";
-                }
-            }else if (ficha.getX()==17 || (ficha.getX()==15&& ficha.getY()<2||ficha.getY()>16)) {
-                if (matriz[ficha.getY()][ficha.getX()+1].equals("✪")) {
+            }
+        }
+        //Lado Izquierdo 
+        if (ficha.getX()==17 || (ficha.getX()==15 && ficha.getY()<=1)||(ficha.getX()==15 && ficha.getY()>=17)) {
+            if (matriz[ficha.getY()][ficha.getX()+1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()+1] = "⬜";
-                }
-            }else if (ficha.getY()==1 || (ficha.getY()==3&&ficha.getX()<2||ficha.getX()>16)) {
-                if (matriz[ficha.getY()-1][ficha.getX()].equals("✪")) {
+            }
+        }
+        //Arriba
+        if (ficha.getY()==1 || (ficha.getY()==3 && ficha.getX()<=1)||(ficha.getY()==3 && ficha.getX()>=17)) {
+            if (matriz[ficha.getY()-1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()-1][ficha.getX()] = "⬜";
-                }
-            }else if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<2||ficha.getX()>16)) {
-                if (matriz[ficha.getY()+1][ficha.getX()].equals("✪")) {
+            }
+        } 
+        
+        //Abajo
+        if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<=1)||(ficha.getY()==15&&ficha.getX()>=17)) {
+            if (matriz[ficha.getY()+1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()+1][ficha.getX()] = "⬜";
-                }
             }
         }
         return matriz;

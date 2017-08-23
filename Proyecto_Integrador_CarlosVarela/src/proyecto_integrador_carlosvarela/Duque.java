@@ -79,7 +79,6 @@ public class Duque extends Fichas{
 
     @Override
     public String[][] comer(Fichas ficha, ArrayList colegas, ArrayList enemigos, String[][] matriz) {
-        System.out.println(ficha.getX()+", "+ficha.getY());
         for (int i = 0; i < colegas.size(); i++) {
             if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
@@ -92,22 +91,28 @@ public class Duque extends Fichas{
                 }
             }
         }
-        if (ficha.getX()==1 || (ficha.getX()==3&& ficha.getY()<2||ficha.getY()>16) ) {
+        
+        //Lado derecho
+        if (ficha.getX()==1 || (ficha.getX()==3 && ficha.getY()<=1)||(ficha.getX()==3 && ficha.getY()>=17)) {
             if (matriz[ficha.getY()][ficha.getX()-1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()-1] = "⬜";
             }
-        } //Bien
-        if (ficha.getX()==17 || (ficha.getX()==15&& ficha.getY()<2||ficha.getY()>16)) {
+        }
+        //Lado Izquierdo 
+        if (ficha.getX()==17 || (ficha.getX()==15 && ficha.getY()<=1)||(ficha.getX()==15 && ficha.getY()>=17)) {
             if (matriz[ficha.getY()][ficha.getX()+1].equals("✪")) {
                     matriz[ficha.getY()][ficha.getX()+1] = "⬜";
             }
-        } //Bien
-        if (ficha.getY()==1 || (ficha.getY()==3&&ficha.getX()<2||ficha.getX()>16)) {
+        }
+        //Arriba
+        if (ficha.getY()==1 || (ficha.getY()==3 && ficha.getX()<=1)||(ficha.getY()==3 && ficha.getX()>=17)) {
             if (matriz[ficha.getY()-1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()-1][ficha.getX()] = "⬜";
             }
         } 
-        if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<2||ficha.getX()>16)) {
+        
+        //Abajo
+        if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<=1)||(ficha.getY()==15&&ficha.getX()>=17)) {
             if (matriz[ficha.getY()+1][ficha.getX()].equals("✪")) {
                     matriz[ficha.getY()+1][ficha.getX()] = "⬜";
             }

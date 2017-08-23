@@ -85,7 +85,7 @@ public class Rebelde extends Fichas{
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("♛")&& 
                         matriz[ficha.getY()+1][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")&&
                         matriz[ficha.getY()-1][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
-                        matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()] = "⬜";
+                        matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2] = "⬜";
                 }
             }
             if(Math.abs(ficha.getY()-((Fichas)colegas.get(i)).getY())==2 && ficha.getX()==((Fichas)colegas.get(i)).getX()){
@@ -98,50 +98,43 @@ public class Rebelde extends Fichas{
                          matriz[(ficha.getY()+((Fichas)colegas.get(i)).getY())/2][ficha.getX()] = "⬜";
                 }
             }
-            if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
-                if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("♛")&&
-                        matriz[ficha.getY()+1][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")&&
-                        matriz[ficha.getY()-1][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {
-                        matriz[ficha.getY()-1][ficha.getX()] = "⬜";
-                }
-            }
         }
-        if (ficha.getX()==1 || (ficha.getX()==3&& ficha.getY()<2||ficha.getY()>16) ) {
+        if (ficha.getX()==1||(ficha.getX()==3 && ficha.getY()<=1)||(ficha.getX()==3&&ficha.getY()>=17) ) {
                 if (matriz[ficha.getY()][ficha.getX()-1].equals("Ⓐ")) {
                     matriz[ficha.getY()][ficha.getX()-1] = "⬜";
                 }
-                if (matriz[ficha.getY()][ficha.getX()-1].equals("♛")&&
+                if (ficha.getX()==1&&matriz[ficha.getY()][ficha.getX()-1].equals("♛")&&
                         matriz[ficha.getY()+1][ficha.getX()-1].equals("✪")&&
                         matriz[ficha.getY()-1][ficha.getX()-1].equals("✪")) {
                         matriz[ficha.getY()][ficha.getX()-1] = "⬜";
                 }
             
         }
-        if (ficha.getX()==17 || (ficha.getX()==15&& ficha.getY()<2||ficha.getY()>16)) {
+        if (ficha.getX()==17||(ficha.getX()==15&& ficha.getY()<=1)||(ficha.getX()==15&&ficha.getY()>=17)) {
             if (matriz[ficha.getY()][ficha.getX()+1].equals("Ⓐ")) {
                     matriz[ficha.getY()][ficha.getX()+1] = "⬜";
             }
-            if (matriz[ficha.getY()][ficha.getX()+1].equals("♛")&&
+            if (ficha.getX()==17&&matriz[ficha.getY()][ficha.getX()+1].equals("♛")&&
                         matriz[ficha.getY()+1][ficha.getX()+1].equals("✪")&&
                         matriz[ficha.getY()-1][ficha.getX()+1].equals("✪")) {
                         matriz[ficha.getY()][ficha.getX()+1] = "⬜";
             }
         }
-        if (ficha.getY()==1 || (ficha.getY()==3&&ficha.getX()<2||ficha.getX()>16)) {
+        if (ficha.getY()==1||(ficha.getY()==3&&ficha.getX()<=1)||(ficha.getY()==3&&ficha.getX()>=17)) {
             if (matriz[ficha.getY()-1][ficha.getX()].equals("Ⓐ")) {
                     matriz[ficha.getY()-1][ficha.getX()] = "⬜";
             }
-            if (matriz[ficha.getY()-1][ficha.getX()].equals("♛")&&
+            if (ficha.getY()==1&&matriz[ficha.getY()-1][ficha.getX()].equals("♛")&&
                         matriz[ficha.getY()-1][ficha.getX()+1].equals("✪")&&
                         matriz[ficha.getY()-1][ficha.getX()-1].equals("✪")) {
                         matriz[ficha.getY()-1][ficha.getX()] = "⬜";
             }
         }
-        if (ficha.getY()==17 || (ficha.getY()==15&&ficha.getX()<2||ficha.getX()>16)) {
+        if (ficha.getY()==17||(ficha.getY()==15&&ficha.getX()<=1)||(ficha.getY()==15&&ficha.getX()>16)) {
             if (matriz[ficha.getY()+1][ficha.getX()].equals("Ⓐ")) {
                     matriz[ficha.getY()+1][ficha.getX()] = "⬜";
             }
-            if (matriz[ficha.getY()+1][ficha.getX()].equals("♛")&&
+            if (ficha.getY()==17&&matriz[ficha.getY()+1][ficha.getX()].equals("♛")&&
                         matriz[ficha.getY()+1][ficha.getX()+1].equals("✪")&&
                         matriz[ficha.getY()+1][ficha.getX()-1].equals("✪")) {
                         matriz[ficha.getY()+1][ficha.getX()] = "⬜";
