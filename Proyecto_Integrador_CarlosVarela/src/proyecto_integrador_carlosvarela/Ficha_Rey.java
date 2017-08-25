@@ -13,11 +13,21 @@ import java.util.ArrayList;
  */public class Ficha_Rey extends Fichas{
         
     private int x, y;
+    private boolean estado;
     
-    public Ficha_Rey(int x, int y){
+    public Ficha_Rey(int x, int y, boolean estado){
         super(x, y);
         this.x=x;
         this.y=y;
+        this.estado = estado;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @Override
@@ -71,7 +81,7 @@ import java.util.ArrayList;
     }
 
     @Override
-    public String[][] comer(Fichas ficha, ArrayList colegas, ArrayList enemigos, String[][] matriz) {
+    public String[][] capturar(Fichas ficha, ArrayList colegas, String[][] matriz) {
         for (int i = 0; i < colegas.size(); i++) {
             if (Math.abs(ficha.getX()-((Fichas)colegas.get(i)).getX())==2 && ficha.getY()==((Fichas)colegas.get(i)).getY()) {
                 if (matriz[ficha.getY()][(ficha.getX()+((Fichas)colegas.get(i)).getX())/2].equals("✪")) {

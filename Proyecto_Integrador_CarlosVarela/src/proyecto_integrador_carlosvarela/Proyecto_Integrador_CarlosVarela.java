@@ -60,7 +60,7 @@ public class Proyecto_Integrador_CarlosVarela {
                 }
                 //Agregando el movimiento
                 posicion = posicion(turno, x, y);
-                System.out.print("... Agregando moviemiento\n"
+                System.out.print("... Agregando movimiento\n"
                         + "- Ingrese x: ");
                 x = sc.nextInt();
                 System.out.print("- Ingrese y: ");
@@ -75,7 +75,8 @@ public class Proyecto_Integrador_CarlosVarela {
                     y = sc.nextInt();
                 }
                 // Obteniendo matriz con la ficha movida
-                tablero = ficha.comer(ficha, primero.getRebeldes(), segundo.getDuques(), ficha.mover(ficha, tablero, x, y));
+                tablero = ficha.capturar(ficha, primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
+                eliminar_ficha(turno);
                 turno = "2";
             } else { //jugador# 2
                 System.out.println(" --- Turno de "+segundo.getNombre()+" ---");
@@ -95,7 +96,7 @@ public class Proyecto_Integrador_CarlosVarela {
                 //En caso de que la ficha sea la ficha Rey
                 if (posicion(turno, x, y)==25) {
                     ficha = (Ficha_Rey)segundo.getRey();
-                    System.out.print("... Rey Agregando moviemiento\n"
+                    System.out.print("... Rey Agregando movimiento\n"
                             + "- Ingrese x: ");
                     x = sc.nextInt();
                     System.out.print("- Ingrese y: ");
@@ -108,12 +109,13 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con el rey en su nueva posicion
-                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(), ficha.mover(ficha, tablero, x, y));
+                    tablero = ficha.capturar(ficha, segundo.getDuques(), ficha.mover(ficha, tablero, x, y));
+                    eliminar_ficha(turno);
                     turno = "1";
                 }else{ 
                     //En caso de que la ficha sea un Duque
                     posicion = posicion(turno, x, y);
-                    System.out.print("... Agregando moviemiento\n"
+                    System.out.print("... Agregando movimiento\n"
                             + "- Ingrese x: ");
                     x = sc.nextInt();
                     System.out.print("- Ingrese y: ");
@@ -127,8 +129,8 @@ public class Proyecto_Integrador_CarlosVarela {
                         y = sc.nextInt();
                     }
                     //Retornando matriz con la ficha movida
-                    tablero =  ficha.mover(ficha, tablero, x, y);
-                    tablero = ficha.comer(ficha, segundo.getDuques(), primero.getRebeldes(),tablero);
+                    tablero = ficha.capturar(ficha, segundo.getDuques(),ficha.mover(ficha, tablero, x, y));
+                    eliminar_ficha(turno);
                     turno = "1";
                 }
             }        
@@ -136,6 +138,39 @@ public class Proyecto_Integrador_CarlosVarela {
         } while (evaluar(ficha));    
     }
 
+    /**
+     * Metodo elimina las fichas que hayan sido capturadas.
+     * @param turno 
+     */
+    public static void eliminar_ficha(String turno){
+        if (turno.equals("1")) {
+            if (tablero[segundo.getRey().getY()][segundo.getRey().getX()].equals("⬜")) {
+                System.out.println("Has capturado al rey!!");
+                ((Ficha_Rey)segundo.getRey()).setEstado(false);
+            }
+            for (int i = 0; i < segundo.getDuques().size(); i++) {
+                if (tablero[segundo.getDuques().get(i).getY()][segundo.getDuques().get(i).getX()].equals("⬜")) {
+                    System.out.println("Pieza eliminada... Has capturado un duque enemigo en la\n"
+                            + "Posicion x: "+segundo.getDuques().get(i).getX()+" | Posicion Y: "+segundo.getDuques().get(i).getY());
+                    segundo.getDuques().remove(i);
+                }
+            }
+        }else{
+            for (int i = 0; i < primero.getRebeldes().size(); i++) {
+                if (tablero[primero.getRebeldes().get(i).getY()][primero.getRebeldes().get(i).getX()].equals("⬜")) {
+                    System.out.println("Pieza eliminada... Has capturado un rebelde enemigo en la\n"
+                            + "Posicion x: "+primero.getRebeldes().get(i).getX()+" | Posicion Y: "+primero.getRebeldes().get(i).getY());
+                    primero.getRebeldes().remove(i);
+                }
+            }
+        }
+    
+    }
+    /**
+     * 
+     * @param ficha
+     * @return 
+     */
     public static boolean evaluar(Fichas ficha){
         if (ficha instanceof Ficha_Rey) {
             if ( (ficha.getY()<2&&ficha.getX()<2)||(ficha.getY()<2&&ficha.getX()>16)||
@@ -144,12 +179,15 @@ public class Proyecto_Integrador_CarlosVarela {
                 primero.getRebeldes().removeAll(primero.getRebeldes());
                 segundo.getDuques().removeAll(segundo.getDuques());
                 return false;
-            }else{
-                return true;
             }
-        }else{
-            return true;
+        }else if (((Ficha_Rey)segundo.getRey()).isEstado()==false)  {
+                System.out.println("Ganador!!!, jugador "+primero.getNombre()+" El rey ha sido capturado");
+                return false;
+        }else if(primero.getRebeldes().size()==0){
+            System.out.println("Jugador "+primero.getNombre()+" Ha perdido! Sus piezas se han acabado");
+            return false;
         }
+        return true;
     }
     
     /**
@@ -292,7 +330,7 @@ public class Proyecto_Integrador_CarlosVarela {
                     segundo.setDuques(new Duque(c,f));
                 }else if(c==9){
                     matriz[f][c]="♛";
-                    segundo.setRey(new Ficha_Rey(c,f));
+                    segundo.setRey(new Ficha_Rey(c,f, true));
                 }else{
                     matriz[f][c]="⬜";
                 }
